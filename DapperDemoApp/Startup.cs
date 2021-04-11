@@ -1,4 +1,7 @@
+using DapperDemoApp.Base;
 using DapperDemoApp.Context;
+using DapperDemoApp.Repository;
+using DapperDemoApp.Repository.Implimentation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,11 @@ namespace DapperDemoApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDBContext>(opt=> opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped(typeof(IEntityBase<>),typeof(EntityBase<>));
+
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+
             services.AddControllersWithViews();
 
         }
