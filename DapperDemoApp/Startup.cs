@@ -32,7 +32,8 @@ namespace DapperDemoApp
 
             services.AddScoped(typeof(IEntityBase<>),typeof(EntityBase<>));
 
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            // services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepositoryDapper>();
 
             services.AddControllersWithViews();
 
