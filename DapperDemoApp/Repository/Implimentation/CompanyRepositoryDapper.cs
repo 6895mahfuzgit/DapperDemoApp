@@ -28,7 +28,8 @@ namespace DapperDemoApp.Repository.Implimentation
             {
                 var sql = "INSERT INTO Companies(Name,Address,City,State,PostCode) VALUES(@Name,@Address,@City,@State,@PostCode)" +
                "SELECT CAST(SCOPE_IDENTITY() AS INT) ";
-                var countryId = _db.Query<int>(sql, new { @Name = company.Name, @Address = company.Address, @City = company.City, @State = company.State, @PostCode = company.PostCode }).Single();
+                //var countryId = _db.Query<int>(sql, new { @Name = company.Name, @Address = company.Address, @City = company.City, @State = company.State, @PostCode = company.PostCode }).Single();
+                var countryId = _db.Query<int>(sql, company).Single();
                 company.CompanyId = countryId;
                 return company;
             }
@@ -109,12 +110,16 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-              
-                return null;
-            }
-            catch (Exception)
-            {
 
+                var sql = "UPDATE Companies SET Name=@Name,Address=@Address,City=@City,State=@State,PostCode=@PostCode WHERE CompanyId=@CompanyId";
+                //var countryId = _db.Query<int>(sql, new { @Name = company.Name, @Address = company.Address, @City = company.City, @State = company.State, @PostCode = company.PostCode, @CompanyId = company.CompanyId }).Single();
+                _db.Execute(sql, company);
+
+                return company;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 throw;
             }
         }
