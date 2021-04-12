@@ -15,5 +15,6 @@ namespace DapperDemoApp.Context
         }
 
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }
