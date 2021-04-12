@@ -77,11 +77,13 @@ namespace DapperDemoApp.Repository.Implimentation
             try
             {
                 var exists = false;
-                //var companyFromDb = _context.Companies.AsNoTracking().FirstOrDefault(x => x.CompanyId == id);
-                //if (companyFromDb != null)
-                //{
-                //    exists = true;
-                //}
+                var sql = "SELECT TOP 1 * FROM Companies";
+                var companyFromDB = _db.Query<Company>(sql).Single();
+
+                if (companyFromDB != null)
+                {
+                    exists = true;
+                }
                 return exists;
             }
             catch (Exception)
