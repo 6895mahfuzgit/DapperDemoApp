@@ -24,9 +24,19 @@ namespace DapperDemoApp.Repository.Implimentation
 
         public async Task<Company> Add(Company company)
         {
-            //await _context.Companies.AddAsync(company);
-            //await _context.SaveChangesAsync();
-            return company;
+            try
+            {
+                var sql = "INSERT INTO Companies(Name,Address,City,State,PostCode) VALUES(@Name,@Address,@City,@State,@PostCode)" +
+               "SELECT CAST(SCOPE_IDENTITY() AS INT) ";
+                var countryId = _db.Query<int>(sql, new { @Name = company.Name, @Address = company.Address, @City = company.City, @State = company.State, @PostCode = company.PostCode }).Single();
+                company.CompanyId = countryId;
+                return company;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
 
@@ -99,17 +109,7 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                //var companyFromDb = await _context.Companies.AsNoTracking().FirstOrDefaultAsync(x => x.CompanyId == company.CompanyId);
-                //if (companyFromDb != null)
-                //{
-                //    companyFromDb.Name = company.Name;
-                //    companyFromDb.Address = company.Address;
-                //    companyFromDb.City = company.City;
-                //    companyFromDb.State = company.State;
-                //    companyFromDb.PostCode = company.PostCode;
-                //    await _context.SaveChangesAsync();
-                //}
-                //return companyFromDb;
+              
                 return null;
             }
             catch (Exception)
