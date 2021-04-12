@@ -16,5 +16,17 @@ namespace DapperDemoApp.Context
 
         public DbSet<Company> Companies { get; set; }
         public DbSet<Employee> Employees { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Company>()
+                        .Ignore(t => t.Employees);
+
+            modelBuilder.Entity<Employee>()
+                        .HasOne(x => x.Company)
+                        .WithMany(x => x.Employees)
+                        .HasForeignKey(x => x.EmployeeId);
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace DapperDemoApp.Models
+﻿using System.Collections.Generic;
+
+namespace DapperDemoApp.Models
 {
     public class Company
     {
@@ -11,6 +13,8 @@
         public string State { get; set; }
 
         public string PostCode { get; set; }
+
+        public List<Employee>  Employees{ get; set; }
 
     }
 }
