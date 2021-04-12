@@ -48,9 +48,7 @@ namespace DapperDemoApp.Migrations
             modelBuilder.Entity("DapperDemoApp.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -69,20 +67,23 @@ namespace DapperDemoApp.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("CompanyId");
-
                     b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("DapperDemoApp.Models.Employee", b =>
                 {
                     b.HasOne("DapperDemoApp.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
+                        .WithMany("Employees")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("DapperDemoApp.Models.Company", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }
