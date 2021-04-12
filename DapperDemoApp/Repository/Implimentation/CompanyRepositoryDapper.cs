@@ -95,9 +95,8 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                //var companyFromDb = await _context.Companies.FirstOrDefaultAsync(x => x.CompanyId == (id ?? 0));
-                //_context.Companies.Remove(companyFromDb);
-                //await _context.SaveChangesAsync();
+                var sql = "DELETE Companies WHERE CompanyId=@Id";
+                _db.Execute(sql, new { @Id = id ?? 0 });
             }
             catch (Exception)
             {
