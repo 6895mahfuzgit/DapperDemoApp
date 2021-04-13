@@ -48,7 +48,9 @@ namespace DapperDemoApp.Migrations
             modelBuilder.Entity("DapperDemoApp.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -67,6 +69,8 @@ namespace DapperDemoApp.Migrations
 
                     b.HasKey("EmployeeId");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Employees");
                 });
 
@@ -74,7 +78,7 @@ namespace DapperDemoApp.Migrations
                 {
                     b.HasOne("DapperDemoApp.Models.Company", "Company")
                         .WithMany("Employees")
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

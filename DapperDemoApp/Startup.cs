@@ -2,6 +2,7 @@ using DapperDemoApp.Base;
 using DapperDemoApp.Context;
 using DapperDemoApp.Repository;
 using DapperDemoApp.Repository.Implimentation;
+using DapperDemoApp.Repository.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,7 @@ namespace DapperDemoApp
 
             // services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepositoryDapper>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             services.AddControllersWithViews();
 

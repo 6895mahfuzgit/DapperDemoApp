@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DapperDemoApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210412184427_mm")]
-    partial class mm
+    [Migration("20210413192449_IntialDB")]
+    partial class IntialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,7 +50,9 @@ namespace DapperDemoApp.Migrations
             modelBuilder.Entity("DapperDemoApp.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -69,6 +71,8 @@ namespace DapperDemoApp.Migrations
 
                     b.HasKey("EmployeeId");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Employees");
                 });
 
@@ -76,7 +80,7 @@ namespace DapperDemoApp.Migrations
                 {
                     b.HasOne("DapperDemoApp.Models.Company", "Company")
                         .WithMany("Employees")
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
