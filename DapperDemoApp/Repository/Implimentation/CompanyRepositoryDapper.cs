@@ -45,8 +45,9 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                var query = "SELECT * FROM Companies Where CompanyId=@CompanyId";
-                var company = _db.Query<Company>(query, new { @CompanyId = id ?? 0 }).SingleOrDefault();
+                //var query = "SELECT * FROM Companies Where CompanyId=@CompanyId";
+                var query = "GET_COMPANY_BY_ID";
+                var company = _db.Query<Company>(query, new { @CompanyId = id ?? 0 },commandType:CommandType.StoredProcedure).SingleOrDefault();
                 return company;
             }
             catch (Exception)
@@ -64,7 +65,7 @@ namespace DapperDemoApp.Repository.Implimentation
             {
                 //var query = "SELECT * FROM Companies";
                 var query = "USP_GET_ALL_COMPANY";
-                return _db.Query<Company>(query).ToList();
+                return _db.Query<Company>(query, commandType: CommandType.StoredProcedure).ToList();
             }
             catch (Exception)
             {
