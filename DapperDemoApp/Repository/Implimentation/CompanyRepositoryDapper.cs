@@ -62,7 +62,8 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                var query = "SELECT * FROM Companies";
+                //var query = "SELECT * FROM Companies";
+                var query = "USP_GET_ALL_COMPANY";
                 return _db.Query<Company>(query).ToList();
             }
             catch (Exception)
