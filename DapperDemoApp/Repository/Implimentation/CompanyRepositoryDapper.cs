@@ -26,11 +26,21 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                var sql = "INSERT INTO Companies(Name,Address,City,State,PostCode) VALUES(@Name,@Address,@City,@State,@PostCode)" +
-               "SELECT CAST(SCOPE_IDENTITY() AS INT) ";
-                //var countryId = _db.Query<int>(sql, new { @Name = company.Name, @Address = company.Address, @City = company.City, @State = company.State, @PostCode = company.PostCode }).Single();
-                var countryId = _db.Query<int>(sql, company).Single();
-                company.CompanyId = countryId;
+                // var sql = "INSERT INTO Companies(Name,Address,City,State,PostCode) VALUES(@Name,@Address,@City,@State,@PostCode)" +
+                //"SELECT CAST(SCOPE_IDENTITY() AS INT) ";
+                // var countryId = _db.Query<int>(sql, company).Single();
+
+                var sql = "USP_ADD_COMPANY";
+                var elements = new DynamicParameters();
+                elements.Add("@CompanyId", 0, DbType.Int32, direction: ParameterDirection.Output);
+                elements.Add("@Name", company.Name);
+                elements.Add("@Address", company.Address);
+                elements.Add("@City", company.City);
+                elements.Add("@State", company.State);
+                elements.Add("@PostCode", company.PostCode);
+
+                _db.Execute(sql, elements, commandType: CommandType.StoredProcedure);
+                company.CompanyId = elements.Get<int>("CompanyId");
                 return company;
             }
             catch (Exception)
@@ -47,7 +57,7 @@ namespace DapperDemoApp.Repository.Implimentation
             {
                 //var query = "SELECT * FROM Companies Where CompanyId=@CompanyId";
                 var query = "GET_COMPANY_BY_ID";
-                var company = _db.Query<Company>(query, new { @CompanyId = id ?? 0 },commandType:CommandType.StoredProcedure).SingleOrDefault();
+                var company = _db.Query<Company>(query, new { @CompanyId = id ?? 0 }, commandType: CommandType.StoredProcedure).SingleOrDefault();
                 return company;
             }
             catch (Exception)
