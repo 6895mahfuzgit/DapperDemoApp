@@ -109,8 +109,9 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                var sql = "DELETE Companies WHERE CompanyId=@Id";
-                _db.Execute(sql, new { @Id = id ?? 0 });
+                //var sql = "DELETE Companies WHERE CompanyId=@Id";
+                var sql = "USP_DELETE_COMPANY";
+                _db.Execute(sql, new { @Id = id ?? 0 }, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
@@ -124,10 +125,18 @@ namespace DapperDemoApp.Repository.Implimentation
             try
             {
 
-                var sql = "UPDATE Companies SET Name=@Name,Address=@Address,City=@City,State=@State,PostCode=@PostCode WHERE CompanyId=@CompanyId";
+                //var sql = "UPDATE Companies SET Name=@Name,Address=@Address,City=@City,State=@State,PostCode=@PostCode WHERE CompanyId=@CompanyId";
                 //var countryId = _db.Query<int>(sql, new { @Name = company.Name, @Address = company.Address, @City = company.City, @State = company.State, @PostCode = company.PostCode, @CompanyId = company.CompanyId }).Single();
-                _db.Execute(sql, company);
 
+                var sql = "USP_UPDATE_COMPANY";
+                var elements = new DynamicParameters();
+                elements.Add("@CompanyId", company.CompanyId);
+                elements.Add("@Name", company.Name);
+                elements.Add("@Address", company.Address);
+                elements.Add("@City", company.City);
+                elements.Add("@State", company.State);
+                elements.Add("@PostCode", company.PostCode);
+                _db.Execute(sql, elements, commandType: CommandType.StoredProcedure);
                 return company;
             }
             catch (Exception ex)
