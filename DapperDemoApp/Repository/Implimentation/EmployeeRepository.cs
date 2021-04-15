@@ -27,8 +27,8 @@ namespace DapperDemoApp.Repository.Implimentation
             {
 
                 var query = "INSERT INTO Employees(Name,Email,Title,Phone,CompanyId) VALUES (@Name,@Email,@Title,@Phone,@CompanyId); SELECT CAST( SCOPE_IDENTITY()AS INT)";
-                int employeeId = _db.Query<int>(query, employee).Single();
-                employee.EmployeeId = employeeId;
+                var employeeId = await _db.QueryAsync<int>(query, employee);
+                employee.EmployeeId = employeeId.Single();
                 return employee;
             }
             catch (Exception ex)
