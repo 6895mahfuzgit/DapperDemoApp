@@ -38,7 +38,8 @@ namespace DapperDemoApp
             services.AddScoped<ICompanyRepository, CompanyRepositoryDapperContrib>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IAdvanceRepository, AdvanceRepository>();
-            
+            services.AddScoped<IDapperBaseRepo, DapperBaseRepo>();
+
             services.AddControllersWithViews();
 
         }
