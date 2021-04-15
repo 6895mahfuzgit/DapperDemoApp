@@ -1,4 +1,5 @@
-﻿using DapperDemoApp.Models;
+﻿using Dapper.Contrib.Extensions;
+using DapperDemoApp.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -19,34 +20,83 @@ namespace DapperDemoApp.Repository.Implimentation
             _db = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public Task<Company> Add(Company company)
+        public async Task<Company> Add(Company company)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public Task<Company> Find(int? id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public Task<List<Company>> GetAll()
+        public async Task<List<Company>> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var companies = _db.GetAll<Company>().ToList();
+                return companies;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
 
         public bool IsCompanyExists(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public Task Remove(int? id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public Task<Company> Update(Company company)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -31,10 +31,11 @@ namespace DapperDemoApp
         {
             services.AddDbContext<ApplicationDBContext>(opt=> opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped(typeof(IEntityBase<>),typeof(EntityBase<>));
+            //services.AddScoped(typeof(IEntityBase<>),typeof(EntityBase<>));
 
             // services.AddScoped<ICompanyRepository, CompanyRepository>();
-            services.AddScoped<ICompanyRepository, CompanyRepositoryDapper>();
+            //services.AddScoped<ICompanyRepository, CompanyRepositoryDapper>();
+            services.AddScoped<ICompanyRepository, CompanyRepositoryDapperContrib>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             services.AddControllersWithViews();
