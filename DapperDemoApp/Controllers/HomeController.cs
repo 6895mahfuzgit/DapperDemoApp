@@ -1,4 +1,5 @@
 ﻿using DapperDemoApp.Models;
+using DapperDemoApp.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +13,18 @@ namespace DapperDemoApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IAdvanceRepository _advanceRepository;
+        public HomeController(ILogger<HomeController> logger, IAdvanceRepository advanceRepository)
         {
             _logger = logger;
+            _advanceRepository = advanceRepository;
         }
 
         public IActionResult Index()
         {
+            var output1 = _advanceRepository.GetCompanyWithEmployees();
+            var output2 = _advanceRepository.GetCompanyWithAddress(1);
+            
             return View();
         }
 

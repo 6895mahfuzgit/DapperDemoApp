@@ -56,6 +56,7 @@ namespace DapperDemoApp.Repository.Implimentation
                         currentCompany = c;
                         companyDictionary.Add(currentCompany.CompanyId, currentCompany);
                     }
+                    
                     currentCompany.Employees.Add(e);
                     return currentCompany;
                 }, splitOn: "EmployeeId");

@@ -22,5 +22,10 @@ namespace DapperDemoApp.Models
         [Write(false)]
         public List<Employee> Employees { get; set; }
 
+
+        public Company()
+        {
+            Employees = new List<Employee>();
+        }
     }
 }
