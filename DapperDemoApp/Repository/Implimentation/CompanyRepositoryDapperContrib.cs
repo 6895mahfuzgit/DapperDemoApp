@@ -24,24 +24,23 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                return null;
+                _db.Insert(company);
+                return company;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-        public Task<Company> Find(int? id)
+        public async Task<Company> Find(int? id)
         {
             try
             {
-                return null;
+                return _db.Get<Company>(id ?? 0);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -64,37 +63,42 @@ namespace DapperDemoApp.Repository.Implimentation
         {
             try
             {
-                return false;
+                var isExists = false;
+                var comapny = _db.Get<Company>(new Company { CompanyId = id });
+                if (comapny != null)
+                {
+                    isExists = true;
+                }
+
+                return isExists;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-        public Task Remove(int? id)
+        public async Task Remove(int? id = 0)
         {
             try
             {
-                return null;
+                _db.Delete(new Company { CompanyId = id ?? 0 });
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-        public Task<Company> Update(Company company)
+        public async Task<Company> Update(Company company)
         {
             try
             {
-                return null;
+                _db.Update(company);
+                return company;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
